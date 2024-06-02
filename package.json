@@ -28,6 +28,8 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@bull-board/express": "^5.19.2",
+    "@bull-board/ui": "^5.19.2",
     "bullmq": "^5.7.14",
     "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
