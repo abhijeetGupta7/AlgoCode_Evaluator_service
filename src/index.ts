@@ -1,3 +1,4 @@
+import bodyParser from "body-parser";
 import express, {Express} from "express"; // we can use cjs import also
 
 import serverAdapter from "./bull_board/bull_board_setup";
@@ -7,6 +8,10 @@ import apirouter from "./routes";
 import SampleWorker from "./workers/sampleWorker";
 
 const app:Express = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.text());
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.use("/api",apirouter);
 app.use('/admin/queues', serverAdapter.getRouter());
