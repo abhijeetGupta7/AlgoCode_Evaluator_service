@@ -8,7 +8,7 @@ const submissionRouter=express.Router();
 
 submissionRouter.post("/",
   validate(CreateSubmissionZodSchema),
-  addSubmission
+  addSubmission,
 );
 
 export default submissionRouter;

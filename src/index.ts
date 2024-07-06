@@ -3,6 +3,9 @@ import express, {Express} from "express"; // we can use cjs import also
 
 import serverAdapter from "./bull_board/bull_board_setup";
 import serverConfig from "./config/server.config";
+import runCppContainer from "./containers/runCppDocker";
+import runJavaContainer from "./containers/runJavaDocker";
+import runPythonContainer from "./containers/runPythonDocker";
 import sampleQueueProducer from "./producers/sampleQueueProducer";
 import apirouter from "./routes";
 import SampleWorker from "./workers/sampleWorker";
@@ -19,6 +22,31 @@ app.use('/admin/queues', serverAdapter.getRouter());
 app.listen(serverConfig.PORT, () => {
   console.log("Server is listening at port", serverConfig.PORT);
   console.log('For the Bull-Board UI, open http://localhost:8080/admin/queues');
+  
+  const codePython=`print(input())`;
+  const codeJava=`import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int num=sc.nextInt();
+        System.out.println("Number is ");
+        System.out.println(num);
+    }
+}`;
+
+  const codeCpp=`#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int a,b;
+    cin >> a >> b;      
+    cout << "value of a is " << a << " and b is " << b;
+}
+`;
+  const inputTestCase="77 23";
+
+  //runPythonContainer(codePython,inputTestCase);
+  //runJavaContainer(codeJava,inputTestCase);
+  runCppContainer(codeCpp,inputTestCase);
 });
 
 sampleQueueProducer("SampleJob",{
