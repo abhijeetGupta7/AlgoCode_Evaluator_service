@@ -7,8 +7,11 @@ import runCppContainer from "./containers/runCppDocker";
 import runJavaContainer from "./containers/runJavaDocker";
 import runPythonContainer from "./containers/runPythonDocker";
 import sampleQueueProducer from "./producers/sampleQueueProducer";
+import SubmissionQueueProducer from "./producers/SubmissionQueueProducer";
 import apirouter from "./routes";
+import { SUBMISSIOB_QUEUE } from "./utils/constants";
 import SampleWorker from "./workers/sampleWorker";
+import SubmissionWorker from "./workers/SubmissionWorker";
 
 const app:Express = express();
 
@@ -46,9 +49,21 @@ int main() {
 
   //runPythonContainer(codePython,inputTestCase);
   //runJavaContainer(codeJava,inputTestCase);
-  runCppContainer(codeCpp,inputTestCase);
+  // runCppContainer(codeCpp,inputTestCase);
+
+  SubmissionQueueProducer({ '777' :{  // userID:data
+    language:"CPP",
+    code:codeCpp,
+    inputTestCase:inputTestCase
+  }
+  });
+
+  SubmissionWorker(SUBMISSIOB_QUEUE);
 });
 
+
+
+/*
 sampleQueueProducer("SampleJob",{
   name:"Abhijeet",
   profession:"Student",
@@ -62,7 +77,7 @@ sampleQueueProducer("SampleJob",{
   Interest:"Food, Fighting"
 }, 3
 );
-
+*/
 sampleQueueProducer("SampleJob",{
   name:"Tony Stark",
   profession:"SuperHero",
@@ -71,5 +86,5 @@ sampleQueueProducer("SampleJob",{
 );
 
 
-SampleWorker("SampleQueue");
+SampleWorker("SampleQueue"); 
 
