@@ -3,9 +3,9 @@ import express, {Express} from "express"; // we can use cjs import also
 
 import serverAdapter from "./bull_board/bull_board_setup";
 import serverConfig from "./config/server.config";
-import runCppContainer from "./containers/runCppDocker";
-import runJavaContainer from "./containers/runJavaDocker";
-import runPythonContainer from "./containers/runPythonDocker";
+import runCppContainer from "./containers/cppExecutor";
+import runPythonContainer from "./containers/pythonExecutor";
+import runJavaContainer from "./containers/runJavaExecutor";
 import sampleQueueProducer from "./producers/sampleQueueProducer";
 import SubmissionQueueProducer from "./producers/SubmissionQueueProducer";
 import apirouter from "./routes";
