@@ -6,8 +6,13 @@ import decodeDockerStream from "./dockerHelper";
 import { pullImage } from "./pullImage";
 
 class PythonExecutor implements CodeExecutorStrategy {
-
-  async execute(code: string, inputTestCase: string): Promise<ExecutionResponse> {
+  
+  async execute(code: string, inputTestCase: string, outputTestCase:string): Promise<ExecutionResponse> {
+    
+    console.log(code);
+    console.log(inputTestCase);
+    console.log(outputTestCase);
+    
     console.log("Intializing the new python docker container"); 
 
     console.log("Pulling the Docker Image");
@@ -40,7 +45,7 @@ class PythonExecutor implements CodeExecutorStrategy {
     
     try {
       const CodeResponse : string = await this.fetchDecodedStream(rawLogBuffer,loggerStream);  
-      return { output:CodeResponse, status:"Completed" };
+      return { output:CodeResponse, status:"COMPLETED" };
     } catch (error) {
       return { output:error as string, status:"ERROR"};
     } finally {

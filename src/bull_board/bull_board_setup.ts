@@ -1,5 +1,5 @@
 import sampleQueue from "../queues/sampleQueue";
-import SubmissionQueue from "../queues/SubmissionQueue";
+import SubmissionQueue from "../queues/SubmissonQueue";
 
 const { createBullBoard } = require('@bull-board/api');
 const { BullAdapter } = require('@bull-board/api/bullAdapter');

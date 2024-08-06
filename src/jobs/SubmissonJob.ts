@@ -1,19 +1,19 @@
 import { Job } from 'bullmq';
 
 import { IJob } from '../types/bullMqJobDefinition';
-import { SubmissionPayload } from '../types/submissionPayload';
+import { SubmissonPayload } from '../types/submissonPayload';
 import createExector from '../utils/ExecutorFactory';
 
 export default class SubmissionJob implements IJob {
   name:string;
-  payload: Record< string, SubmissionPayload >;
-  constructor(payload:Record<string,SubmissionPayload>) {
+  payload: Record< string, SubmissonPayload >;
+  constructor(payload:Record<string,SubmissonPayload>) {
     this.name=this.constructor.name;
     this.payload=payload;
   }
 
   handle = async (job?:Job) => {
-    console.log("Handler of Sample Job");
+    console.log("Handler of Job");
     console.log(this.payload);
     if(job) {
       //console.log(job.name,job.id,job.data);
@@ -21,9 +21,10 @@ export default class SubmissionJob implements IJob {
       const codeLanguage=this.payload[key].language;
       const code=this.payload[key].code;
       const inputTestCase=this.payload[key].inputTestCase;
+      const outputTestCase=this.payload[key].outputTestCase;
       const executor=createExector(codeLanguage);
       if(executor!=null) {
-        const response=await executor.execute(code,inputTestCase);
+        const response=await executor.execute(code,inputTestCase,outputTestCase);
         if(response.status==="COMPLETED") {
           console.log("Code executed Successfully");
           console.log(response);

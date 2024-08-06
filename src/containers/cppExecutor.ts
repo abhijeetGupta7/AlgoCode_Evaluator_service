@@ -5,7 +5,13 @@ import decodeDockerStream from "./dockerHelper";
 import { pullImage } from "./pullImage";
 
 class CppExecutor implements CodeExecutorStrategy {
-  async execute(code: string, inputTestCase: string): Promise<ExecutionResponse> {
+ 
+  async execute(code: string, inputTestCase: string, outputTestCase:string): Promise<ExecutionResponse> {
+    
+    console.log(code);
+    console.log(inputTestCase);
+    console.log(outputTestCase);
+    
     console.log("Intializing the new CPP docker container"); 
   
     console.log("Pulling the Docker Image");
