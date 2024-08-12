@@ -1,16 +1,17 @@
+import { createBullBoard } from '@bull-board/api';
+import { BullAdapter } from '@bull-board/api/bullAdapter';
+import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
+import { ExpressAdapter } from '@bull-board/express';
+
+import EvaluationQueue from "../queues/EvaluationQueue";
 import sampleQueue from "../queues/sampleQueue";
 import SubmissionQueue from "../queues/SubmissonQueue";
-
-const { createBullBoard } = require('@bull-board/api');
-const { BullAdapter } = require('@bull-board/api/bullAdapter');
-const { BullMQAdapter } = require('@bull-board/api/bullMQAdapter');
-const { ExpressAdapter } = require('@bull-board/express');
 
 const serverAdapter = new ExpressAdapter();
 serverAdapter.setBasePath('/admin/queues');
 
 const { addQueue, removeQueue, setQueues, replaceQueues } = createBullBoard({
-  queues: [new BullAdapter(sampleQueue),new BullAdapter(SubmissionQueue)],
+  queues: [new BullAdapter(sampleQueue),new BullMQAdapter(SubmissionQueue),new BullMQAdapter(EvaluationQueue)],
   serverAdapter: serverAdapter,
 });
 

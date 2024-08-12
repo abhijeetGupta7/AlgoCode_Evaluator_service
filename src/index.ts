@@ -7,6 +7,7 @@ import sampleQueueProducer from "./producers/sampleQueueProducer";
 import SubmissionQueueProducer from "./producers/SubmissionQueueProducer";
 import apirouter from "./routes";
 import { SUBMISSION_QUEUE } from "./utils/constants";
+import EvaluationWorker from "./workers/EvaluationWorker";
 import SampleWorker from "./workers/sampleWorker";
 import SubmissionWorker from "./workers/SubmissionWorker";
 
@@ -56,12 +57,14 @@ app.listen(serverConfig.PORT, () => {
   //   code:code,
   //   inputTestCase:"3",
   //   outputTestCase:"27"
-  // }
+  // }   
   // };
 
   // SubmissionQueueProducer(submissonQueuePayload);
 
   SubmissionWorker("SubmissonQueue");
+  
+  //EvaluationWorker("EvaluationQueue");  // just for testing, actually this is to be done by submisson_service
   /*
   const codePython=`print(input())`;
   const codeJava=`import java.util.Scanner;
