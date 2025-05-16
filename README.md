@@ -200,7 +200,7 @@ All responses follow this structure:
   "message": "Error message",
   "data": {},
   "error": {
-    /* error details */
+    "error details"
   }
 }
 ```
